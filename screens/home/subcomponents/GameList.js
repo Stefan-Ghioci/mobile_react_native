@@ -1,6 +1,6 @@
 import React from 'react';
 import { ListItem } from 'react-native-elements';
-import { formatDate } from '../../../utils';
+import { formatDate, formatDouble } from '../../../utils';
 import { Avatar } from 'react-native-elements';
 
 const RatingAvatar = ({ value }) => {
@@ -10,14 +10,15 @@ const RatingAvatar = ({ value }) => {
 
   return (
     <Avatar
+      rounded
       size='medium'
       overlayContainerStyle={{ backgroundColor: color }}
-      title={(Math.round(value * 10) / 10).toString()}
+      title={formatDouble(value)}
     />
   );
 };
 
-const GameList = ({ list }) => {
+const GameList = ({ list, onPress }) => {
   return list.map((e, i) => (
     <ListItem
       key={i}
@@ -25,6 +26,7 @@ const GameList = ({ list }) => {
       title={e.name}
       rightTitle={formatDate(e.date)}
       bottomDivider
+      onPress={() => onPress(e)}
     />
   ));
 };

@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native';
-import { HomeHeader, TextLoadingIndicator, GameList } from './subcomponents';
+import {
+  HomeHeader,
+  TextLoadingIndicator,
+  GameList,
+  CustomFloatingAction
+} from './subcomponents';
 
 const HomeScreenContainer = props => {
   const [games, setGames] = useState([]);
@@ -23,16 +28,23 @@ const HomeScreenContainer = props => {
     props.navigation.navigate('SignIn');
   };
 
+  const handleGamePressed = game => {
+    console.log(game);
+  };
+
   return (
     <>
       <HomeHeader refresh={() => setLoading(true)} logout={handleLogout} />
-      <ScrollView style={{ flex: 1 }}>
-        {isLoading ? (
-          <TextLoadingIndicator message='Loading games...' />
-        ) : (
-          <GameList list={games} />
-        )}
-      </ScrollView>
+      <>
+        <ScrollView style={{ flex: 1 }}>
+          {isLoading ? (
+            <TextLoadingIndicator message='Loading games...' />
+          ) : (
+            <GameList list={games} onPress={handleGamePressed} />
+          )}
+        </ScrollView>
+        <CustomFloatingAction />
+      </>
     </>
   );
 };

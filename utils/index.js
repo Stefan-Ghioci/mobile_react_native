@@ -1,5 +1,5 @@
 import moment from 'moment';
-import Snackbar from "react-native-snackbar";
+import Snackbar from 'react-native-snackbar';
 
 export const showSuccess = message =>
   Snackbar.show({
@@ -9,3 +9,5 @@ export const showSuccess = message =>
   });
 
 export const formatDate = date => moment(date).format('DD MMM, YYYY');
+
+export const formatDouble = value => (Math.round(value * 10) / 10).toString();

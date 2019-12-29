@@ -24,6 +24,8 @@ const SignInScreenContainer = props => {
         />
         <Button title='Sign In' onPress={handleSignIn} />
         <Button
+          buttonStyle={styles.secondaryButton}
+          titleStyle={styles.secondaryButtonTitle}
           type='outline'
           title='Create a new account'
           onPress={() => props.navigation.navigate('SignUp')}
