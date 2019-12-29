@@ -3,7 +3,7 @@ import { Button, Input } from 'react-native-elements';
 import { View } from 'react-native';
 import { styles } from './SignUpScreenStyles';
 
-const SignUpScreenView = props => {
+const SignUpScreenView = ({onSubmit}) => {
   return (
     <View style={styles.container}>
       <Input
@@ -15,7 +15,7 @@ const SignUpScreenView = props => {
         leftIcon={{ type: 'material', name: 'lock' }}
         secureTextEntry
       />
-      <Button title='Sign Up' onPress={props.onSubmit} />
+      <Button title='Sign Up' onPress={onSubmit} />
     </View>
   );
 };

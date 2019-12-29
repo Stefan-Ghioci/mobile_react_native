@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native';
-import { ListItem, Header } from 'react-native-elements';
-import {
-  RatingAvatar,
-  TextLoadingIndicator
-} from '../../utils/CustomComponents';
-import { formatDate } from '../../utils';
+import { HomeHeader, TextLoadingIndicator, GameList } from './subcomponents';
 
 const HomeScreenContainer = props => {
   const [games, setGames] = useState([]);
@@ -23,55 +18,19 @@ const HomeScreenContainer = props => {
       .catch(error => console.log(error));
   }, [isLoading]);
 
-  const refreshScreen = () => {
-    setLoading(true);
-  };
-
-  const logout = () => {
+  const handleLogout = () => {
     // TODO: logout after auth system works
     props.navigation.navigate('SignIn');
   };
 
   return (
     <>
-      <Header
-        statusBarProps={{
-          backgroundColor: 'rgba(0,0,0,0.5)',
-          translucent: true,
-          barStyle: 'light-content'
-        }}
-        leftComponent={{
-          icon: 'power-settings-new',
-          size: 28,
-          color: 'white',
-          underlayColor: '#64b5f6',
-          onPress: logout
-        }}
-        centerComponent={{
-          text: 'MY GAMES',
-          style: { fontSize: 18, fontWeight: 'bold', color: 'white' }
-        }}
-        rightComponent={{
-          icon: 'refresh',
-          color: 'white',
-          size: 28,
-          onPress: refreshScreen,
-          underlayColor: '#64b5f6'
-        }}
-      />
+      <HomeHeader refresh={() => setLoading(true)} logout={handleLogout} />
       <ScrollView style={{ flex: 1 }}>
         {isLoading ? (
           <TextLoadingIndicator message='Loading games...' />
         ) : (
-          games.map((e, i) => (
-            <ListItem
-              key={i}
-              leftAvatar={<RatingAvatar value={e.rating} />}
-              title={e.name}
-              rightTitle={formatDate(e.date)}
-              bottomDivider
-            />
-          ))
+          <GameList list={games} />
         )}
       </ScrollView>
     </>
