@@ -1,6 +1,6 @@
 import React from 'react';
 import { ListItem } from 'react-native-elements';
-import formatDate from '../../../utils';
+import { formatDate } from '../../../utils';
 import { Avatar } from 'react-native-elements';
 
 const RatingAvatar = ({ value }) => {
