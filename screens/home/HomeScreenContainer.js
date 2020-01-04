@@ -8,23 +8,44 @@ import {
 } from './subcomponents';
 import { GET_URL } from '../../api';
 import ImageModal from './subcomponents/ImageModal';
+import AsyncStorage from '@react-native-community/async-storage';
+import axios from 'axios';
 
 const HomeScreenContainer = props => {
   const [games, setGames] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [isVisible, setVisible] = useState(false);
-  const [selectedImage, selectImage] = useState("");
+  const [selectedImage, selectImage] = useState('');
+
   useEffect(() => {
-    fetch(GET_URL, {
-      method: 'GET'
-    })
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    axios
+      .get(GET_URL, { timeout: 3000 })
       .then(response => response.json())
-      .then(responseJson => {
-        setLoading(false);
-        setGames(responseJson);
-      })
-      .catch(error => console.log(error));
-  }, [isLoading]);
+      .then(storeData)
+      .catch(console.log)
+      .finally(getData);
+  };
+
+  const storeData = async data => {
+    await AsyncStorage.setItem('@games', JSON.stringify(data));
+  };
+
+  const getData = async () => {
+    const json = await AsyncStorage.getItem('@games');
+    const data = JSON.parse(json);
+
+    setLoading(false);
+    setGames(data);
+  };
+
+  const refreshData = () => {
+    setLoading(true);
+    fetchData();
+  };
 
   const handleLogout = () => {
     // TODO: logout after auth system works
@@ -38,7 +59,7 @@ const HomeScreenContainer = props => {
 
   return (
     <>
-      <HomeHeader refresh={() => setLoading(true)} logout={handleLogout} />
+      <HomeHeader refresh={refreshData} logout={handleLogout} />
       <>
         <ScrollView style={{ flex: 1 }}>
           {isLoading ? (
