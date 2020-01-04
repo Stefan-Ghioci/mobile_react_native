@@ -6,13 +6,16 @@ import {
   GameList,
   CustomFloatingAction
 } from './subcomponents';
+import { GET_URL } from '../../api';
+import ImageModal from './subcomponents/ImageModal';
 
 const HomeScreenContainer = props => {
   const [games, setGames] = useState([]);
   const [isLoading, setLoading] = useState(true);
-
+  const [isVisible, setVisible] = useState(false);
+  const [selectedImage, selectImage] = useState("");
   useEffect(() => {
-    fetch('http://192.168.0.102:8080/mobileapps/games', {
+    fetch(GET_URL, {
       method: 'GET'
     })
       .then(response => response.json())
@@ -29,7 +32,8 @@ const HomeScreenContainer = props => {
   };
 
   const handleGamePressed = game => {
-    console.log(game);
+    selectImage(game.imageURL);
+    setVisible(true);
   };
 
   return (
@@ -44,6 +48,11 @@ const HomeScreenContainer = props => {
           )}
         </ScrollView>
         <CustomFloatingAction />
+        <ImageModal
+          isVisible={isVisible}
+          toggleModal={() => setVisible(!isVisible)}
+          imageURL={selectedImage}
+        />
       </>
     </>
   );
