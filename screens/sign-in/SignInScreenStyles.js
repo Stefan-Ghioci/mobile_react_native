@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { red } from '../../utils';
 
 export const styles = StyleSheet.create({
   container: {
@@ -7,10 +8,10 @@ export const styles = StyleSheet.create({
     padding: 20
   },
   secondaryButton: {
-    borderColor: '#dc3722',
+    borderColor: red,
     borderWidth: 1
   },
   secondaryButtonTitle: {
-    color: '#dc3722'
+    color: red
   }
 });

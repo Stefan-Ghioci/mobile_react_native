@@ -11,3 +11,8 @@ export const showSuccess = message =>
 export const formatDate = date => moment(date).format('DD MMM, YYYY');
 
 export const formatDouble = value => (Math.round(value * 10) / 10).toString();
+
+export const blue = '#64b5f6';
+export const darkBlue = '#2475b6';
+
+export const red = '#dc3722';

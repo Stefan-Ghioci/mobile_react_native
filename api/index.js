@@ -1,4 +1,4 @@
-const ROOT = 'http://192.168.42.47:8080';
+const ROOT = 'http://10.142.2.224:8080';
 
 const REST = ROOT + '/mobileapps';
 

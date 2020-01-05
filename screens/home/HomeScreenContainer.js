@@ -24,7 +24,7 @@ const HomeScreenContainer = props => {
   const fetchData = async () => {
     console.log('Fetching games list with axios from ' + GET_GAMES_URL);
     axios
-      .get(GET_GAMES_URL, { timeout: 2000 })
+      .get(GET_GAMES_URL, { timeout: 200 })
       .then(response => response.data)
       .then(storeData)
       .catch(console.log)
@@ -73,28 +73,26 @@ const HomeScreenContainer = props => {
       props.navigation.navigate('AddGame');
     } else if (name === 'bt_stats') {
       console.log('Navigating to stats screen...');
-      props.navigation.navigate('Stats');
+      props.navigation.navigate('Stats', { games: JSON.stringify(games) });
     }
   };
 
   return (
     <>
       <HomeHeader refresh={refreshData} logout={handleLogout} />
-      <>
-        <ScrollView style={{ flex: 1 }}>
-          {isLoading ? (
-            <TextLoadingIndicator message='Loading games...' />
-          ) : (
-            <GameList list={games} onPress={handleGamePressed} />
-          )}
-        </ScrollView>
-        <CustomFloatingAction onPressItem={handleButtonPressed} />
-        <ImageModal
-          isVisible={isVisible}
-          toggleModal={() => setVisible(!isVisible)}
-          imageURL={selectedImage}
-        />
-      </>
+      <ScrollView style={{ flex: 1 }}>
+        {isLoading ? (
+          <TextLoadingIndicator message='Loading games...' />
+        ) : (
+          <GameList list={games} onPress={handleGamePressed} />
+        )}
+      </ScrollView>
+      <CustomFloatingAction onPressItem={handleButtonPressed} />
+      <ImageModal
+        isVisible={isVisible}
+        toggleModal={() => setVisible(!isVisible)}
+        imageURL={selectedImage}
+      />
     </>
   );
 };

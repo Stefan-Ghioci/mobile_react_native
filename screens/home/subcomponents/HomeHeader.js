@@ -1,5 +1,6 @@
 import React from 'react';
 import { Header } from 'react-native-elements';
+import { blue } from '../../../utils';
 
 const HomeHeader = ({ refresh, logout }) => {
   return (
@@ -13,7 +14,7 @@ const HomeHeader = ({ refresh, logout }) => {
         icon: 'power-settings-new',
         size: 28,
         color: 'white',
-        underlayColor: '#64b5f6',
+        underlayColor: blue,
         onPress: logout
       }}
       centerComponent={{
@@ -25,7 +26,7 @@ const HomeHeader = ({ refresh, logout }) => {
         color: 'white',
         size: 28,
         onPress: refresh,
-        underlayColor: '#64b5f6'
+        underlayColor: blue
       }}
     />
   );
