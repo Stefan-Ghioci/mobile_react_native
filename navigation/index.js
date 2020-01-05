@@ -1,14 +1,12 @@
-import { createSwitchNavigator, createAppContainer } from 'react-navigation';
-import AuthenticationNavigator from './AuthenticationNavigator';
-import { HomeScreen } from '../screens';
+import { createAppContainer } from 'react-navigation';
+import createAnimatedSwitchNavigator from 'react-navigation-animated-switch';
 
-const AppNavigator = createSwitchNavigator({
-  /*
-   * Rather than being rendered by a screen component, the
-   * AuthenticationNavigator is a screen component
-   */
+import AuthenticationNavigator from './AuthenticationNavigator';
+import HomeNavigator from './HomeNavigator';
+
+const AppNavigator = createAnimatedSwitchNavigator({
   Auth: AuthenticationNavigator,
-  Home: HomeScreen
+  Home: HomeNavigator
 });
 
 const AppContainer = createAppContainer(AppNavigator);

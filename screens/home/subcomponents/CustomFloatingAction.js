@@ -2,7 +2,7 @@ import React from 'react';
 import { FloatingAction } from 'react-native-floating-action';
 import { Icon } from 'react-native-elements';
 
-const CustomFloatingAction = () => {
+const CustomFloatingAction = ({onPressItem}) => {
   const actions = [
     {
       text: 'Add New Game',
@@ -18,14 +18,11 @@ const CustomFloatingAction = () => {
     }
   ];
 
-  const handleItemPressed = name => {
-    console.log(name);
-  };
 
   return (
     <FloatingAction
       actions={actions}
-      onPressItem={handleItemPressed}
+      onPressItem={onPressItem}
       color='#dc3722'
     />
   );
