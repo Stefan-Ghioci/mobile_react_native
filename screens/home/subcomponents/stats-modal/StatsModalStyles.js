@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { blue, darkBlue } from '../../../../utils';
+import { blue, darkBlue, red, darkRed } from '../../../../utils';
 
 export const styles = StyleSheet.create({
   container: {
@@ -10,23 +10,21 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    borderColor: blue,
-    borderWidth: 1,
-    marginHorizontal: 22,
-    marginVertical: 15,
-    borderRadius: 5,
-    backgroundColor: "#eef"
+    backgroundColor: darkBlue,
+    marginBottom: 20
   },
   title: {
-    color: darkBlue
+    color: 'white',
+    fontSize: 21,
+    fontWeight: 'bold'
   },
   body: {
-    flex: 5,
+    flex: 8,
     alignItems: 'center',
     justifyContent: 'space-evenly'
   },
   footer: {
-    flex: 1,
+    flex: 2,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-evenly'
@@ -42,8 +40,8 @@ export const styles = StyleSheet.create({
 });
 
 export const chartConfig = {
-  backgroundGradientFrom: blue,
-  backgroundGradientTo: darkBlue,
+  backgroundGradientFrom: red,
+  backgroundGradientTo: red,
   color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
   labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`
 };

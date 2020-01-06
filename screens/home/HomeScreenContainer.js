@@ -56,7 +56,6 @@ const HomeScreenContainer = props => {
   };
 
   const handleLogout = () => {
-    // TODO: logout after auth system works
     console.log('Logging out, redirecting to Sign In menu...');
     props.navigation.navigate('SignIn');
   };

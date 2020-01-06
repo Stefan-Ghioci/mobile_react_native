@@ -5,7 +5,7 @@ import { styles } from './AddGameScreenStyles';
 import { showSuccess, showError, formatDate, imageUrlRegex } from '../../utils';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Axios from 'axios';
-import { POST_GAMES_URL } from '../../api';
+import { POST_GAME_URL } from '../../api';
 
 const AddGameScreenContainer = props => {
   const [rating, setRating] = useState(2.5);
@@ -31,7 +31,11 @@ const AddGameScreenContainer = props => {
       setNameError('');
     }
 
-    if (imageURL.match(imageUrlRegex) === [] && imageURL !== '') {
+    if (
+      (imageURL.match(imageUrlRegex) === [] ||
+        imageURL.match(imageUrlRegex) === null) &&
+      imageURL !== ''
+    ) {
       setimageURLError('Image URL must be either valid or empty');
       valid = false;
     } else {
@@ -42,15 +46,16 @@ const AddGameScreenContainer = props => {
 
     // send data to server
 
-    Axios.post(
-      POST_GAMES_URL,
-      { name, date, imageURL, rating },
-      { timeout: 2000 }
-    )
+    const game = { name, date, imageURL, rating };
+    console.log('Uploading game ' + JSON.stringify(game));
+    Axios.post(POST_GAME_URL, game, { timeout: 2000 })
       .then(() => {
+        console.log('Success, returning to Home screen...');
         showSuccess('Game added successfully');
       })
-      .catch(() => {
+      .catch(error => {
+        console.log(error);
+        console.log('Cannot upload to server, returning to Home screen...');
         showError('An error occurred while sending data to the server');
       })
       .finally(() => {

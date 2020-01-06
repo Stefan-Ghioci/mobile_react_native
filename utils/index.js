@@ -22,5 +22,8 @@ export const formatDouble = value => (Math.round(value * 10) / 10).toString();
 export const blue = '#64b5f6';
 export const darkBlue = '#2475b6';
 export const red = '#dc3722';
+export const darkRed = '#bc0702';
 
-export const imageUrlRegex = '/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/g';
+export const imageUrlRegex = '(https?:\/\/.*\.(?:png|jpg))';
+
+export const emailRegex = '[^@]+@[^.]+..+';

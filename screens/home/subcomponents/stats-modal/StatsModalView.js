@@ -8,7 +8,7 @@ const StatsScreenView = ({ chartData, onGoBack, onSendMail }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title} h4>Ratings Average Per Year</Text>
+        <Text style={styles.title}>RATINGS AVERAGE PER YEAR</Text>
       </View>
       <View style={styles.body}>
         {chartData.datasets[0].data !== [] ? (
