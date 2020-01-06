@@ -4,3 +4,4 @@ const REST = ROOT + '/mobileapps';
 
 export const GET_GAMES_URL = REST + '/games';
 
+export const POST_GAMES_URL = REST + '/games';
