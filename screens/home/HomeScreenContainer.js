@@ -4,7 +4,8 @@ import {
   HomeHeader,
   TextLoadingIndicator,
   GameList,
-  CustomFloatingAction
+  CustomFloatingAction,
+  StatsModal
 } from './subcomponents';
 import { GET_GAMES_URL } from '../../api';
 import ImageModal from './subcomponents/ImageModal';
@@ -14,7 +15,8 @@ import axios from 'axios';
 const HomeScreenContainer = props => {
   const [games, setGames] = useState([]);
   const [isLoading, setLoading] = useState(true);
-  const [isVisible, setVisible] = useState(false);
+  const [isImageModalVisible, setImageModalVisibile] = useState(false);
+  const [isStatsModalVisible, setStatsModalVisibile] = useState(false);
   const [selectedImage, selectImage] = useState('');
 
   useEffect(() => {
@@ -60,20 +62,20 @@ const HomeScreenContainer = props => {
   };
 
   const handleGamePressed = game => {
-    console.log('Game pressed, loading game image...');
+    console.log('Game pressed, loading game image modal...');
     if (game.imageURL !== '') {
       selectImage(game.imageURL);
-      setVisible(true);
+      setImageModalVisibile(true);
     }
   };
 
   const handleButtonPressed = name => {
     if (name === 'bt_add_game') {
-      console.log('Navigating to Add Game form...');
+      console.log('Navigating to Add Game screen...');
       props.navigation.navigate('AddGame');
     } else if (name === 'bt_stats') {
-      console.log('Navigating to stats screen...');
-      props.navigation.navigate('Stats', { games: JSON.stringify(games) });
+      console.log('Opening stats modal...');
+      setStatsModalVisibile(true);
     }
   };
 
@@ -89,9 +91,14 @@ const HomeScreenContainer = props => {
       </ScrollView>
       <CustomFloatingAction onPressItem={handleButtonPressed} />
       <ImageModal
-        isVisible={isVisible}
-        toggleModal={() => setVisible(!isVisible)}
+        isVisible={isImageModalVisible}
+        toggleModal={() => setImageModalVisibile(!isImageModalVisible)}
         imageURL={selectedImage}
+      />
+      <StatsModal
+        games={games}
+        isVisible={isStatsModalVisible}
+        toggleModal={() => setStatsModalVisibile(!isStatsModalVisible)}
       />
     </>
   );

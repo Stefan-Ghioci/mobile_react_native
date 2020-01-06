@@ -1,18 +1,13 @@
 import React from 'react';
 import { View } from 'react-native';
-import { showSuccess } from '../../utils';
-import StatsScreenView from './StatsScreenView';
+import { showSuccess } from '../../../../utils';
+import StatsModalView from './StatsModalView';
+import Modal from 'react-native-modal';
 
-const StatsScreenContainer = props => {
-  const games = JSON.parse(props.navigation.getParam('games'));
-
+const StatsModalContainer = ({ games, isVisible, toggleModal }) => {
   const handleSendMail = () => {
+    toggleModal();
     showSuccess('Stats successfully sent to your email');
-    goBack();
-  };
-
-  const goBack = () => {
-    props.navigation.navigate('Home');
   };
 
   const createLabels = () => {
@@ -36,14 +31,18 @@ const StatsScreenContainer = props => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
-      <StatsScreenView
-        chartData={data}
-        onSendMail={handleSendMail}
-        onGoBack={goBack}
-      />
-    </View>
+    <Modal
+      animationIn='slideInUp'
+      animationInTiming={1000}
+      isVisible={isVisible}
+    >
+          <StatsModalView
+            chartData={data}
+            onSendMail={handleSendMail}
+            onGoBack={toggleModal}
+          />
+    </Modal>
   );
 };
 
-export default StatsScreenContainer;
+export default StatsModalContainer;
