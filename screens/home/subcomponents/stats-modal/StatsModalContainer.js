@@ -5,11 +5,6 @@ import StatsModalView from './StatsModalView';
 import Modal from 'react-native-modal';
 
 const StatsModalContainer = ({ games, isVisible, toggleModal }) => {
-  const handleSendMail = () => {
-    toggleModal();
-    showSuccess('Stats successfully sent to your email');
-  };
-
   const createLabels = () => {
     const labels = games
       .map(game => parseInt(game.date.substr(0, 4), 10))
@@ -32,15 +27,13 @@ const StatsModalContainer = ({ games, isVisible, toggleModal }) => {
 
   return (
     <Modal
-      animationIn='slideInUp'
+      animationIn='zoomInDown'
       animationInTiming={1000}
       isVisible={isVisible}
+      onSwipeComplete={toggleModal}
+      swipeDirection={['up', 'down', 'left', 'right']}
     >
-          <StatsModalView
-            chartData={data}
-            onSendMail={handleSendMail}
-            onGoBack={toggleModal}
-          />
+      <StatsModalView chartData={data} />
     </Modal>
   );
 };

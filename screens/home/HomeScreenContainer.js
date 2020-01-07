@@ -11,6 +11,7 @@ import { GET_GAMES_URL } from '../../api';
 import ImageModal from './subcomponents/ImageModal';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
+import { sendEmail } from '../../utils';
 
 const HomeScreenContainer = props => {
   const [games, setGames] = useState([]);
@@ -73,8 +74,15 @@ const HomeScreenContainer = props => {
       console.log('Navigating to Add Game screen...');
       props.navigation.navigate('AddGame');
     } else if (name === 'bt_stats') {
-      console.log('Opening stats modal...');
-      setStatsModalVisibile(true);
+      if (games === []) {
+        console.log('Cannot open stats modal, no games loaded');
+      } else {
+        console.log('Opening stats modal...');
+        setStatsModalVisibile(true);
+      }
+    } else if (name === 'bt_email') {
+      console.log('Sending game list through email');
+      sendEmail(games);
     }
   };
 

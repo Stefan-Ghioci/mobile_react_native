@@ -92,14 +92,14 @@ const AddGameScreenContainer = props => {
         />
         <View>
           <Text style={styles.label}>
-            Rating: {rating.toString().substr(0, 3)}
+            Rating: {rating.toString().substr(0, 4)}
           </Text>
           <Slider
             style={{ width: 350 }}
             value={rating}
             minimumValue={0.0}
             maximumValue={5.0}
-            step={0.1}
+            step={0.01}
             maximumTrackTintColor={'red'}
             minimumTrackTintColor={'green'}
             thumbTintColor={'green'}

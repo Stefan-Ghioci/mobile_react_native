@@ -1,36 +1,15 @@
 import { StyleSheet } from 'react-native';
-import { blue, darkBlue, red, darkRed } from '../../../../utils';
+import { blue, darkBlue } from '../../../../utils';
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: 'white'
-  },
-  header: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    backgroundColor: darkBlue,
-    marginBottom: 20
+    alignItems: 'center'
   },
   title: {
     color: 'white',
-    fontSize: 21,
-    fontWeight: 'bold'
-  },
-  body: {
-    flex: 8,
-    alignItems: 'center',
-    justifyContent: 'space-evenly'
-  },
-  footer: {
-    flex: 2,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-evenly'
-  },
-  button: {
-    width: 150
+    fontSize: 20,
+    padding: 10,
+    fontWeight: 'bold',
   },
   chart: {
     borderRadius: 5
@@ -40,8 +19,8 @@ export const styles = StyleSheet.create({
 });
 
 export const chartConfig = {
-  backgroundGradientFrom: red,
-  backgroundGradientTo: red,
+  backgroundGradientFrom: blue,
+  backgroundGradientTo: darkBlue,
   color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
   labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`
 };

@@ -10,7 +10,9 @@ const SignInScreenContainer = props => {
     console.log('Signing in ...');
     Axios.post(SIGN_IN_URL, { email, password }, { timeout: 2000 })
       .then(() => {
-        console.log('Sign in success, redirecting to Home screen ...');
+        console.log(
+          'Sign in success as ' + email + ', redirecting to Home screen ...'
+        );
         props.navigation.navigate('Home');
       })
       .catch(error => {
