@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import { Button, Text, Input, Slider } from 'react-native-elements';
 import { styles } from './AddGameScreenStyles';
-import { showSuccess, showError, formatDate, imageUrlRegex } from '../../utils';
+import { showSuccess, showError, showWarning, formatDate, imageUrlRegex } from '../../utils';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Axios from 'axios';
 import { POST_GAME_URL } from '../../api';
+import { useStore } from '../../store';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const AddGameScreenContainer = props => {
+  const { state, dispatch } = useStore();
+
   const [rating, setRating] = useState(2.5);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [date, setDate] = useState(new Date('2000-01-01'));
@@ -47,20 +51,39 @@ const AddGameScreenContainer = props => {
     // send data to server
 
     const game = { name, date, imageURL, rating };
-    console.log('Uploading game ' + JSON.stringify(game));
-    Axios.post(POST_GAME_URL, game, { timeout: 2000 })
-      .then(() => {
-        console.log('Success, returning to Home screen...');
-        showSuccess('Game added successfully');
-      })
-      .catch(error => {
-        console.log(error);
-        console.log('Cannot upload to server, returning to Home screen...');
-        showError('An error occurred while sending data to the server');
-      })
-      .finally(() => {
+    if (state.user.loggedIn) {
+      console.log('Uploading game ' + JSON.stringify(game));
+      Axios.post(POST_GAME_URL, game, { timeout: 2000 })
+        .then(() => {
+          console.log('Success, returning to Home screen...');
+          showSuccess('Game added successfully');
+        })
+        .catch(error => {
+          console.log(error);
+          console.log('Cannot upload to server, returning to Home screen...');
+          showError('An error occurred while sending data to the server');
+        })
+        .finally(() => {
+          goBack();
+        });
+    } else {
+      console.log('Offline mode, will store game to upload when online');
+      saveGameToAddLater(game).then(() => {
+        console.log(
+          'Game stored for later upload, returning to Home Screen ...'
+        );
+        showWarning('Data saved. Game will be added after logging in.')
         goBack();
       });
+    }
+  };
+
+  const saveGameToAddLater = async game => {
+    const json = await AsyncStorage.getItem('@add');
+    let data = [];
+    if (json) data = JSON.parse(json);
+    data.push(game);
+    await AsyncStorage.setItem('@add', JSON.stringify(data));
   };
 
   const pickDate = (_event, pickedDate) => {

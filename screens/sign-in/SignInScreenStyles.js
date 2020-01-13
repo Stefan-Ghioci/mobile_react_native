@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
   },
   secondaryButton: {
     borderColor: red,
-    borderWidth: 1
+    borderWidth: 0.5
   },
   secondaryButtonTitle: {
     color: red

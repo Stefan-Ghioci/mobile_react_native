@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { styles } from './SignInScreenStyles';
 
-const SignInScreenView = ({ signIn, onGoToSignUp }) => {
+const SignInScreenView = ({ signIn, onGoToSignUp, offline }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -23,6 +23,7 @@ const SignInScreenView = ({ signIn, onGoToSignUp }) => {
         secureTextEntry
       />
       <Button title='Sign In' onPress={() => signIn(email, password)} />
+      <Button type='outline' title='Offline Mode' onPress={offline} />
       <Button
         buttonStyle={styles.secondaryButton}
         titleStyle={styles.secondaryButtonTitle}

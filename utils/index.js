@@ -16,6 +16,13 @@ export const showError = message =>
     backgroundColor: 'red'
   });
 
+export const showWarning = message =>
+  Snackbar.show({
+    title: message,
+    duration: Snackbar.LENGTH_SHORT,
+    backgroundColor: '#f0dd27'
+  });
+
 export const formatDate = date => moment(date).format('DD MMM, YYYY');
 
 export const formatDouble = value => (Math.round(value * 10) / 10).toString();
