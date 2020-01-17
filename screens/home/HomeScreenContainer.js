@@ -35,11 +35,13 @@ const HomeScreenContainer = props => {
       let notAdded = [];
       if (json) {
         data = JSON.parse(json);
+        console.log('Adding ' + data.length + ' games...');
         await data.forEach(game => {
           JSON.stringify(game);
-          axios
-            .post(POST_GAME_URL, game, { timeout: 2000 })
-            .catch(() => notAdded.push(game));
+          axios.post(POST_GAME_URL, game, { timeout: 2000 }).catch(() => {
+            console.log('Game=' + game + " couldn't be added");
+            return notAdded.push(game);
+          });
         });
       }
       await AsyncStorage.setItem('@add', JSON.stringify(notAdded));
